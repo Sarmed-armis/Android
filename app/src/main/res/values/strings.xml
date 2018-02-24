@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Cars Eyes</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="search_for_car">search car</string>
+    <string name="gallery">gallery</string>
+    <string name="action_setting">setting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Car</string>
+    <string name="hello_Stting_fragment">Setting</string>
+    <string name="hello_gallery_fragment">Gallery</string>
+    <string name="button_search">Search</string>
+</resources>
