@@ -36,7 +36,7 @@ class SearchCar : Fragment() {
         val Alarm=inflater.inflate(R.layout.activity_poup_window,null)
         val popupWindow = PopupWindow(
                 Alarm, // Custom view to show in popup window
-                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.MATCH_PARENT, // Width of popup window
                 LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -64,28 +64,163 @@ class SearchCar : Fragment() {
             val cm:ConnectivityManager= view.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val INF:NetworkInfo=cm.activeNetworkInfo
             INF.isConnected()
+
             if (INF.isConnected()) {
 
 
 
 Thread({
     try {
-        val callResponse = api.getNews("", "1")
-        val res = callResponse.execute()
-        if (res.isSuccessful){
-            val NEWS=res.body().data.children.map {
-                val item = it.data
-                ReadRowNewsResponse(item.author,item.title,item.num_comments,item.created, item.thumbnail, item.url)
+        val VIN=Ed.text
+        val callResponse = api.getNews(VIN.toString())
 
-            }
-           // Log.i("The data is :-",NEWS[0].title)
-            Read=NEWS[0].title
+        val res = callResponse.execute()
+
+
+        if (res.isSuccessful){
+            val dd=res.body().Results[0].Make
+            Read=dd+"\n"+res.body().Results[0].Model+"\n"+res.body().Results[0].ModelYear
+
+            /*{
+                val item = it.Results
+                ReadRowNewsResponse(item.Windows,
+                        item.WheelSizeRear,
+                        item.WheelSizeFront,
+                        item.Wheels,
+                        item.WheelBaseType,
+                        item.WheelBaseShort,
+                        item.WheelBaseLong,
+                        item.VIN,
+                        item.VehicleType,
+                        item.ValveTrainDesign,
+                        item.Turbo,
+                        item.Trim2,
+                        item.Trim,
+                        item.TransmissionStyle,
+                        item.TransmissionSpeeds,
+                        item.TrailerType,
+                        item.TrailerLength,
+                        item.TrailerBodyType,
+                        item.TractionControl,
+                        item.TrackWidth,
+                        item.TPMS,
+                        item.TopSpeedMPH,
+                        item.SuggestedVIN,
+                        item.SteeringLocation,
+                        item.Series2,
+                        item.Series,
+                        item.Seats,
+                        item.SeatRows,
+                        item.SeatBeltsAll,
+                        item.RearVisibilityCamera,
+                        item.Pretensioner,
+                        item.PossibleValues,
+                        item.PlantState,
+                        item.PlantCountry,
+                        item.PlantCompanyName,
+                        item.PlantCity,
+                        item.ParkAssist,
+                        item.OtherTrailerInfo,
+                        item.OtherRestraintSystemInfo,
+                        item.OtherMotorcycleInfo,
+                        item.OtherEngineInfo,
+                        item.OtherBusInfo,
+                        item.Note,
+                        item.NCSAModel,
+                        item.NCSAMake,
+                        item.NCSABodyType,
+                        item.NCICCode,
+                        item.NCAPModel,
+                        item.NCAPMake,
+                        item.NCAPBodyType,
+                        item.MotorcycleSuspensionType,
+                        item.MotorcycleChassisType,
+                        item.ModelYear,
+                        item.Model,
+                        item.ManufacturerType,
+                        item.ManufacturerId,
+                        item.Manufacturer,
+                        item.Make,
+                        item.LaneKeepSystem,
+                        item.LaneDepartureWarning,
+                        item.GVWR,
+                        item.FuelTypeSecondary,
+                        item.FuelTypePrimary,
+                        item.FuelInjectionType,
+                        item.ForwardCollisionWarning,
+                        item.EVDriveUnit,
+                        item.ESC,
+                        item.ErrorCode,
+                        item.EquipmentType,
+                        item.EntertainmentSystem,
+                        item.EngineModel,
+                        item.EngineManufacturer,
+                        item.EngineKW,
+                        item.EngineHP_to,
+                        item.EngineHP,
+                        item.EngineCylinders,
+                        item.EngineCycles,
+                        item.EngineConfiguration,
+                        item.ElectrificationLevel,
+                        item.DriveType,
+                        item.DriverAssist,
+                        item.Doors,
+                        item.DisplacementL,
+                        item.DisplacementCI,
+                        item.DisplacementCC,
+                        item.DestinationMarket,
+                        item.CustomMotorcycleType,
+                        item.CurbWeightLB,
+                        item.Country,
+                        item.CoolingType,
+                        item.ChargerPowerKW,
+                        item.ChargerLevel,
+                        item.CashForClunkers,
+                        item.CAFEModel,
+                        item.CAFEMake,
+                        item.CAFEBodyType,
+                        item.BusType,
+                        item.BusLength,
+                        item.BusFloorConfigType,
+                        item.BrakeSystemType,
+                        item.BrakeSystemDesc,
+                        item.BodyClass,
+                        item.BodyCabType,
+                        item.BlindSpotMon,
+                        item.BedType,
+                        item.BedLengthIN,
+                        item.BatteryV_to,
+                        item.BatteryV,
+                        item.BatteryType,
+                        item.BatteryPacks,
+                        item.BatteryModules,
+                        item.BatteryKWh_to,
+                        item.BatteryKWh,
+                        item.BatteryInfo,
+                        item.BatteryCells,
+                        item.BatteryA_to,
+                        item.BatteryA,
+                        item.BasePrice,
+                        item.Axles,
+                        item.AxleConfiguration,
+                        item.Artemis,
+                        item.AirBagLocSide,
+                        item.AirBagLocSeatCushion,
+                        item.AirBagLocKnee,
+                        item.AirBagLocFront,
+                        item.AirBagLocCurtain,
+                        item.AEB,
+                        item.AdditionalErrorText,
+                        item.AdaptiveHeadlights,
+                        item.AdaptiveCruiseControl,
+                        item.ABS) }
+                        */
 
         }
 
     }
     catch (e:Exception){
-        Log.i("The Erorr:-",e.toString())
+        Log.i("The Erorr:-",e.message)
     }
 }).start()
 
@@ -101,6 +236,7 @@ Thread({
                         0, // X offset
                         200 // Y offset
                 )
+
             }
 
             val tv = Alarm.findViewById<TextView>(R.id.text_view)
@@ -118,3 +254,4 @@ Thread({
     }
 
 }// Required empty public constructor
+
